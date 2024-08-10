@@ -3,14 +3,25 @@ document.getElementById('convertBtn').addEventListener('click', function() {
     const fromCurrency = document.getElementById('fromCurrency').value;
     const toCurrency = document.getElementById('toCurrency').value;
 
-    let conversionRate = 1;
-
-    if (fromCurrency === 'USD' && toCurrency === 'INR') {
-        conversionRate = 75;
-    } else if (fromCurrency === 'EUR' && toCurrency === 'GBP') {
-        conversionRate = 0.85;
+    if (!amount) {
+        document.getElementById('result').innerText = 'Please enter an amount.';
+        return;
     }
 
-    const result = amount * conversionRate;
-    document.getElementById('result').innerText = `Converted Amount: ${result} ${toCurrency}`;
+    document.getElementById('result').innerText = 'Converting...';
+
+    const apiKey = 'YOUR_API_KEY'; // Replace with a real API key
+    const apiUrl = `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const conversionRate = data.rates[toCurrency];
+            const result = amount * conversionRate;
+            document.getElementById('result').innerText = `Converted Amount: ${result.toFixed(2)} ${toCurrency}`;
+        })
+        .catch(error => {
+            console.error('Error fetching exchange rates:', error);
+            document.getElementById('result').innerText = 'Error fetching exchange rates. Please try again later.';
+        });
 });
