@@ -51,3 +51,27 @@ function addToHistory(amount, fromCurrency, result, toCurrency) {
     listItem.innerText = `${amount} ${fromCurrency} = ${result} ${toCurrency}`;
     historyList.appendChild(listItem);
 }
+
+document.getElementById('darkModeToggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    this.innerText = isDarkMode ? '☀️' : '🌙';
+});
+
+document.getElementById('amount').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        document.getElementById('convertBtn').click();
+    }
+});
+
+document.getElementById('fromCurrency').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        document.getElementById('toCurrency').focus();
+    }
+});
+
+document.getElementById('toCurrency').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        document.getElementById('convertBtn').focus();
+    }
+});

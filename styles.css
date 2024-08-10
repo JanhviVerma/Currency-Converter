@@ -1,11 +1,18 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
+    color: #333;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #f9f9f9;
 }
 
 .converter {
@@ -15,13 +22,27 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .converter {
+    background-color: #444;
 }
 
 .converter h1 {
     margin-bottom: 25px;
     font-size: 26px;
-    color: #222;
     text-align: center;
+}
+
+#darkModeToggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
 }
 
 .converter-container {
@@ -33,7 +54,6 @@ body {
 
 label {
     font-weight: bold;
-    color: #333;
 }
 
 input, select, button {
@@ -41,18 +61,23 @@ input, select, button {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button {
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     border: none;
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+body.dark-mode button {
+    background-color: #0056b3;
+    color: #ddd;
 }
 
 #swapBtn {
@@ -103,7 +128,6 @@ button:hover {
     margin-top: 15px;
     font-size: 20px;
     font-weight: bold;
-    color: #333;
     text-align: center;
 }
 
@@ -113,7 +137,6 @@ button:hover {
 
 .history h2 {
     font-size: 22px;
-    color: #444;
     text-align: center;
 }
 
@@ -126,4 +149,8 @@ button:hover {
     padding: 8px;
     border-bottom: 1px solid #ddd;
     font-size: 16px;
+}
+
+body.dark-mode .history li {
+    border-color: #555;
 }

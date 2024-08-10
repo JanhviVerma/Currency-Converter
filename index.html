@@ -9,6 +9,7 @@
 <body>
     <div class="converter">
         <h1>Currency Converter</h1>
+        <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
         <div class="converter-container">
             <label for="amount">Amount:</label>
             <input type="number" id="amount" placeholder="Enter amount" aria-label="Amount to convert">
@@ -20,9 +21,11 @@
                 <option value="JPY">JPY</option>
                 <option value="AUD">AUD</option>
                 <option value="CAD">CAD</option>
+                <option value="SGD">SGD</option>
+                <option value="HKD">HKD</option>
             </select>
 
-            <button id="swapBtn">⇄</button>
+            <button id="swapBtn" aria-label="Swap currencies">⇄</button>
 
             <label for="toCurrency">To:</label>
             <select id="toCurrency" aria-label="To currency">
@@ -31,12 +34,14 @@
                 <option value="CHF">CHF</option>
                 <option value="CNY">CNY</option>
                 <option value="NZD">NZD</option>
+                <option value="SGD">SGD</option>
+                <option value="HKD">HKD</option>
             </select>
             
-            <button id="convertBtn">Convert</button>
-            <button id="resetBtn">Reset</button>
-            <div id="loading" class="loading-spinner"></div>
-            <div id="result" role="alert"></div>
+            <button id="convertBtn" aria-label="Convert currencies">Convert</button>
+            <button id="resetBtn" aria-label="Reset form">Reset</button>
+            <div id="loading" class="loading-spinner" aria-live="polite"></div>
+            <div id="result" role="alert" aria-live="polite"></div>
         </div>
         <div class="history">
             <h2>Conversion History</h2>
