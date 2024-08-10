@@ -3,8 +3,8 @@ document.getElementById('convertBtn').addEventListener('click', function() {
     const fromCurrency = document.getElementById('fromCurrency').value;
     const toCurrency = document.getElementById('toCurrency').value;
 
-    if (!amount) {
-        document.getElementById('result').innerText = 'Please enter an amount.';
+    if (!amount || amount <= 0) {
+        document.getElementById('result').innerText = 'Please enter a valid amount.';
         return;
     }
 
@@ -20,6 +20,7 @@ document.getElementById('convertBtn').addEventListener('click', function() {
             const conversionRate = data.rates[toCurrency];
             const result = amount * conversionRate;
             document.getElementById('result').innerText = `Converted Amount: ${result.toFixed(2)} ${toCurrency}`;
+            addToHistory(amount, fromCurrency, result.toFixed(2), toCurrency);
         })
         .catch(error => {
             console.error('Error fetching exchange rates:', error);
@@ -37,3 +38,16 @@ document.getElementById('resetBtn').addEventListener('click', function() {
     document.getElementById('result').innerText = '';
     document.getElementById('loading').style.display = 'none';
 });
+
+document.getElementById('swapBtn').addEventListener('click', function() {
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    document.getElementById('fromCurrency').value = document.getElementById('toCurrency').value;
+    document.getElementById('toCurrency').value = fromCurrency;
+});
+
+function addToHistory(amount, fromCurrency, result, toCurrency) {
+    const historyList = document.getElementById('historyList');
+    const listItem = document.createElement('li');
+    listItem.innerText = `${amount} ${fromCurrency} = ${result} ${toCurrency}`;
+    historyList.appendChild(listItem);
+}
