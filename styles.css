@@ -154,3 +154,17 @@ body.dark-mode button {
 body.dark-mode .history li {
     border-color: #555;
 }
+
+#clearHistoryBtn {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#clearHistoryBtn:hover {
+    background-color: #e5533d;
+}

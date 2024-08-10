@@ -15,8 +15,16 @@ document.getElementById('convertBtn').addEventListener('click', function() {
     const apiUrl = `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`;
 
     fetch(apiUrl)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
+            if (!data.rates[toCurrency]) {
+                throw new Error('Currency not supported');
+            }
             const conversionRate = data.rates[toCurrency];
             const result = amount * conversionRate;
             document.getElementById('result').innerText = `Converted Amount: ${result.toFixed(2)} ${toCurrency}`;
@@ -45,18 +53,38 @@ document.getElementById('swapBtn').addEventListener('click', function() {
     document.getElementById('toCurrency').value = fromCurrency;
 });
 
+document.getElementById('darkModeToggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+});
+
 function addToHistory(amount, fromCurrency, result, toCurrency) {
     const historyList = document.getElementById('historyList');
     const listItem = document.createElement('li');
-    listItem.innerText = `${amount} ${fromCurrency} = ${result} ${toCurrency}`;
+    listItem.textContent = `${amount} ${fromCurrency} = ${result} ${toCurrency}`;
     historyList.appendChild(listItem);
+    saveHistory();
 }
 
-document.getElementById('darkModeToggle').addEventListener('click', function() {
-    document.body.classList.toggle('dark-mode');
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    this.innerText = isDarkMode ? '☀️' : '🌙';
+document.getElementById('clearHistoryBtn').addEventListener('click', function() {
+    document.getElementById('historyList').innerHTML = '';
+    localStorage.removeItem('conversionHistory');
 });
+
+function saveHistory() {
+    const historyList = document.getElementById('historyList').innerHTML;
+    localStorage.setItem('conversionHistory', historyList);
+}
+
+function loadHistory() {
+    const history = localStorage.getItem('conversionHistory');
+    if (history) {
+        document.getElementById('historyList').innerHTML = history;
+    }
+}
+
+window.onload = function() {
+    loadHistory();
+};
 
 document.getElementById('amount').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
