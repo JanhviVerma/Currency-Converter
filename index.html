@@ -4,73 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Converter</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4a90e2">
 </head>
 <body>
-    <div class="converter">
-        <h1>Currency Converter</h1>
-        <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
-        <div class="converter-container">
-            <label for="amount" data-tooltip="Enter the amount you want to convert.">Amount:</label>
-            <input type="number" id="amount" placeholder="Enter amount" aria-label="Amount to convert" required>
+    <div class="background">
+        <div class="converter" role="main">
+            <h1 id="pageTitle">Currency Converter</h1>
+            <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+            <div class="converter-container" aria-labelledby="pageTitle">
+                <label for="amount" data-tooltip="Enter the amount you want to convert.">Amount:</label>
+                <input type="number" id="amount" placeholder="Enter amount" aria-label="Amount to convert" required>
 
-            <label for="fromCurrency" data-tooltip="Select the currency you are converting from.">From:</label>
-            <select id="fromCurrency" aria-label="From currency" required>
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="JPY">JPY</option>
-                <option value="AUD">AUD</option>
-                <option value="CAD">CAD</option>
-                <option value="SGD">SGD</option>
-                <option value="HKD">HKD</option>
-            </select>
+                <label for="fromCurrency" data-tooltip="Select the currency you are converting from.">From:</label>
+                <select id="fromCurrency" aria-label="From currency" required>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="JPY">JPY</option>
+                    <option value="GBP">GBP</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                    <option value="CHF">CHF</option>
+                    <option value="CNY">CNY</option>
+                    <option value="HKD">HKD</option>
+                    <option value="NZD">NZD</option>
+                </select>
 
-            <button id="swapBtn" aria-label="Swap currencies" title="Swap currencies">⇄</button>
+                <button id="swapBtn" aria-label="Swap currencies" title="Swap currencies">⇄</button>
 
-            <label for="toCurrency" data-tooltip="Select the currency you are converting to.">To:</label>
-            <select id="toCurrency" aria-label="To currency" required>
-                <option value="INR">INR</option>
-                <option value="GBP">GBP</option>
-                <option value="CHF">CHF</option>
-                <option value="CNY">CNY</option>
-                <option value="NZD">NZD</option>
-                <option value="SGD">SGD</option>
-                <option value="HKD">HKD</option>
-            </select>
-            
-            <button id="convertBtn" aria-label="Convert currencies">Convert</button>
-            <button id="resetBtn" aria-label="Reset form">Reset</button>
-            <div id="loading" class="loading-spinner" aria-live="polite"></div>
-            <div id="result" role="alert" aria-live="polite"></div>
-        </div>
-        <div class="history">
-            <h2>Conversion History</h2>
-            <ul id="historyList"></ul>
-            <button id="clearHistoryBtn" aria-label="Clear conversion history">Clear History</button>
-        </div>
-        <div class="preferences">
-            <h2>Preferences</h2>
-            <label for="defaultFromCurrency">Default From Currency:</label>
-            <select id="defaultFromCurrency" aria-label="Default From Currency">
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="JPY">JPY</option>
-                <option value="AUD">AUD</option>
-                <option value="CAD">CAD</option>
-            </select>
+                <label for="toCurrency" data-tooltip="Select the currency you are converting to.">To:</label>
+                <select id="toCurrency" aria-label="To currency" required>
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="JPY">JPY</option>
+                    <option value="GBP">GBP</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                    <option value="CHF">CHF</option>
+                    <option value="CNY">CNY</option>
+                    <option value="HKD">HKD</option>
+                    <option value="NZD">NZD</option>
+                </select>
+                
+                <button id="convertBtn" aria-label="Convert currencies">Convert</button>
+                <button id="resetBtn" aria-label="Reset form">Reset</button>
+                <div id="loading" class="loading-spinner" aria-live="polite"></div>
+                <div id="result" role="alert" aria-live="polite"></div>
+            </div>
+            <canvas id="rateChart"></canvas>
+            <div class="history">
+                <h2>Conversion History</h2>
+                <ul id="historyList"></ul>
+                <button id="clearHistoryBtn" aria-label="Clear conversion history">Clear History</button>
+            </div>
+            <div class="preferences">
+                <h2>Preferences</h2>
+                <label for="defaultFromCurrency">Default From Currency:</label>
+                <select id="defaultFromCurrency" aria-label="Default From Currency">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="JPY">JPY</option>
+                    <option value="GBP">GBP</option>
+                    <option value="AUD">AUD</option>
+                </select>
 
-            <label for="defaultToCurrency">Default To Currency:</label>
-            <select id="defaultToCurrency" aria-label="Default To Currency">
-                <option value="INR">INR</option>
-                <option value="GBP">GBP</option>
-                <option value="CHF">CHF</option>
-                <option value="CNY">CNY</option>
-                <option value="NZD">NZD</option>
-            </select>
-            
-            <button id="savePreferences" aria-label="Save preferences">Save Preferences</button>
+                <label for="defaultToCurrency">Default To Currency:</label>
+                <select id="defaultToCurrency" aria-label="Default To Currency">
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="JPY">JPY</option>
+                    <option value="GBP">GBP</option>
+                    <option value="AUD">AUD</option>
+                </select>
+                
+                <button id="savePreferences" aria-label="Save preferences">Save Preferences</button>
+            </div>
+            <div class="language-selector">
+                <h2>Select Language</h2>
+                <select id="languageSelect" aria-label="Select Language">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
