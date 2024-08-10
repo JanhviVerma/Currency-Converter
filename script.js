@@ -41,8 +41,8 @@ document.getElementById('convertBtn').addEventListener('click', function() {
 
 document.getElementById('resetBtn').addEventListener('click', function() {
     document.getElementById('amount').value = '';
-    document.getElementById('fromCurrency').value = 'USD';
-    document.getElementById('toCurrency').value = 'INR';
+    document.getElementById('fromCurrency').value = localStorage.getItem('defaultFromCurrency') || 'USD';
+    document.getElementById('toCurrency').value = localStorage.getItem('defaultToCurrency') || 'INR';
     document.getElementById('result').innerText = '';
     document.getElementById('loading').style.display = 'none';
 });
@@ -84,6 +84,8 @@ function loadHistory() {
 
 window.onload = function() {
     loadHistory();
+    document.getElementById('fromCurrency').value = localStorage.getItem('defaultFromCurrency') || 'USD';
+    document.getElementById('toCurrency').value = localStorage.getItem('defaultToCurrency') || 'INR';
 };
 
 document.getElementById('amount').addEventListener('keydown', function(event) {
@@ -102,4 +104,12 @@ document.getElementById('toCurrency').addEventListener('keydown', function(event
     if (event.key === 'Enter') {
         document.getElementById('convertBtn').focus();
     }
+});
+
+document.getElementById('savePreferences').addEventListener('click', function() {
+    const defaultFromCurrency = document.getElementById('defaultFromCurrency').value;
+    const defaultToCurrency = document.getElementById('defaultToCurrency').value;
+    localStorage.setItem('defaultFromCurrency', defaultFromCurrency);
+    localStorage.setItem('defaultToCurrency', defaultToCurrency);
+    alert('Preferences saved!');
 });

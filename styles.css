@@ -54,6 +54,22 @@ body.dark-mode .converter {
 
 label {
     font-weight: bold;
+    position: relative;
+}
+
+label[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 14px;
+    transform: translateY(5px);
+    opacity: 0.8;
 }
 
 input, select, button {
@@ -167,4 +183,32 @@ body.dark-mode .history li {
 
 #clearHistoryBtn:hover {
     background-color: #e5533d;
+}
+
+.preferences {
+    margin-top: 20px;
+}
+
+.preferences h2 {
+    font-size: 22px;
+    text-align: center;
+}
+
+.preferences label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.preferences select, .preferences button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+#savePreferences {
+    background-color: #17a2b8;
+    color: white;
+}
+
+#savePreferences:hover {
+    background-color: #138496;
 }

@@ -11,11 +11,11 @@
         <h1>Currency Converter</h1>
         <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
         <div class="converter-container">
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" placeholder="Enter amount" aria-label="Amount to convert">
+            <label for="amount" data-tooltip="Enter the amount you want to convert.">Amount:</label>
+            <input type="number" id="amount" placeholder="Enter amount" aria-label="Amount to convert" required>
 
-            <label for="fromCurrency">From:</label>
-            <select id="fromCurrency" aria-label="From currency">
+            <label for="fromCurrency" data-tooltip="Select the currency you are converting from.">From:</label>
+            <select id="fromCurrency" aria-label="From currency" required>
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
                 <option value="JPY">JPY</option>
@@ -25,10 +25,10 @@
                 <option value="HKD">HKD</option>
             </select>
 
-            <button id="swapBtn" aria-label="Swap currencies">⇄</button>
+            <button id="swapBtn" aria-label="Swap currencies" title="Swap currencies">⇄</button>
 
-            <label for="toCurrency">To:</label>
-            <select id="toCurrency" aria-label="To currency">
+            <label for="toCurrency" data-tooltip="Select the currency you are converting to.">To:</label>
+            <select id="toCurrency" aria-label="To currency" required>
                 <option value="INR">INR</option>
                 <option value="GBP">GBP</option>
                 <option value="CHF">CHF</option>
@@ -47,6 +47,28 @@
             <h2>Conversion History</h2>
             <ul id="historyList"></ul>
             <button id="clearHistoryBtn" aria-label="Clear conversion history">Clear History</button>
+        </div>
+        <div class="preferences">
+            <h2>Preferences</h2>
+            <label for="defaultFromCurrency">Default From Currency:</label>
+            <select id="defaultFromCurrency" aria-label="Default From Currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="JPY">JPY</option>
+                <option value="AUD">AUD</option>
+                <option value="CAD">CAD</option>
+            </select>
+
+            <label for="defaultToCurrency">Default To Currency:</label>
+            <select id="defaultToCurrency" aria-label="Default To Currency">
+                <option value="INR">INR</option>
+                <option value="GBP">GBP</option>
+                <option value="CHF">CHF</option>
+                <option value="CNY">CNY</option>
+                <option value="NZD">NZD</option>
+            </select>
+            
+            <button id="savePreferences" aria-label="Save preferences">Save Preferences</button>
         </div>
     </div>
     <script src="script.js"></script>
