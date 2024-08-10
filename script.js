@@ -8,7 +8,8 @@ document.getElementById('convertBtn').addEventListener('click', function() {
         return;
     }
 
-    document.getElementById('result').innerText = 'Converting...';
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('result').innerText = '';
 
     const apiKey = 'YOUR_API_KEY'; // Replace with a real API key
     const apiUrl = `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`;
@@ -23,5 +24,16 @@ document.getElementById('convertBtn').addEventListener('click', function() {
         .catch(error => {
             console.error('Error fetching exchange rates:', error);
             document.getElementById('result').innerText = 'Error fetching exchange rates. Please try again later.';
+        })
+        .finally(() => {
+            document.getElementById('loading').style.display = 'none';
         });
+});
+
+document.getElementById('resetBtn').addEventListener('click', function() {
+    document.getElementById('amount').value = '';
+    document.getElementById('fromCurrency').value = 'USD';
+    document.getElementById('toCurrency').value = 'INR';
+    document.getElementById('result').innerText = '';
+    document.getElementById('loading').style.display = 'none';
 });
