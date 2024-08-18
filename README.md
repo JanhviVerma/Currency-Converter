@@ -2,6 +2,8 @@
 
 A fully functional and aesthetically designed currency converter application built with HTML, CSS, and JavaScript. This application allows users to convert amounts between various currencies, toggle dark mode, and save preferences. It also features a conversion history and language selection.
 
+**[Try it!](https://janhviverma.github.io/Currency-Converter/)**
+
 ## Features
 
 - **Currency Conversion**: Convert amounts between different currencies using real-time exchange rates.
